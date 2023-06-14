@@ -7,5 +7,8 @@ export const cells = [
   },
   {
     label: 'Status'
+  },
+  {
+    label: 'Detalhes'
   }
 ]

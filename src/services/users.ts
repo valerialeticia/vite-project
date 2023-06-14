@@ -1,5 +1,5 @@
 import api from "../config/axios"
 
 export const getUsers = () => {
-  return api.get('/todos')
+  return api.get('/posts')
 }

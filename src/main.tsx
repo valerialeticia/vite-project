@@ -12,6 +12,7 @@ import Root from "./routes/root"
 import { ThemeProvider } from "@mui/material"
 import { theme } from './config/mui'
 import { Home } from './pages/Home/Home'
+import { Error } from './routes/components/Error'
 
 
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />
+      },
+      {
+        path: '*',
+        element: <Error />
       }
     ]
   },

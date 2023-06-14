@@ -1,29 +1,34 @@
 import { 
+  Box,
+  CircularProgress,
+  IconButton,
   Paper, 
   TableBody, 
   TableCell, 
   TableContainer, 
   TableHead, 
-  TableRow 
+  TablePagination,
+  TableRow
 } from "@mui/material"
 import TableMUI from '@mui/material/Table'
-
-type Rows = {
-  userId: number;
-  id: number;
-  title: string;
-  completed: boolean
-}[]
+import InfoIcon from '@mui/icons-material/Info'
+import { Rows } from "../../types/table"
 
 type Cells = {
   label: string
-}[]
+}
 interface TableProps {
-  rows: Rows;
-  cells: Cells
+  rows: Rows[];
+  cells: Cells[];
+  loading: boolean;
+  rowsPerPage: number;
+  page: number;
+  handleChangePage: (event: unknown, newPage: number) => void;
+  handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
+
 }
 
-export const Table = ({ rows, cells }: TableProps) => {
+export const Table = ({ rows, cells, loading,rowsPerPage, page, handleChangePage, handleChangeRowsPerPage }: TableProps) => {
   return (
     <TableContainer component={Paper}>
       <TableMUI sx={{ minWidth: 650 }} aria-label="simple table">
@@ -35,20 +40,39 @@ export const Table = ({ rows, cells }: TableProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows?.map(row => (
             <TableRow
               component="tr"
-              key={row.userId}
+              key={row.id}
             >
-              <TableCell component="td" scope="row" align="left">{row.userId.toString()}</TableCell>
+              <TableCell component="td" scope="row" align="left">{row.id.toString()}</TableCell>
               <TableCell component="td" scope="row" align="left">
                 {row.title}
               </TableCell>
-              <TableCell component="td" scope="row" align="left">{row.completed.toString()}</TableCell>
+              <TableCell component="td" scope="row" align="left">{row.body}</TableCell>
+              <TableCell component="td" scope="row" align="left">
+                  <IconButton>
+                    <InfoIcon />
+                  </IconButton> 
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </TableMUI>
+      {loading &&  
+        <Box sx={{ display: 'flex' }}>
+          <CircularProgress />
+        </Box>
+      }
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={rows?.length || 0}
+        rowsPerPage={rowsPerPage}
+        page={!rows?.length || rows?.length <= 0 ? 0 : page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </TableContainer>
   )
 }
