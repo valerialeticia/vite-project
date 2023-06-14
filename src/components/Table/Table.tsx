@@ -3,6 +3,7 @@ import {
   CircularProgress,
   IconButton,
   Link,
+  Pagination,
   Paper, 
   TableBody, 
   TableCell, 
@@ -23,14 +24,14 @@ interface TableProps {
   rows: Rows[];
   cells: Cells[];
   loading: boolean;
-  rowsPerPage: number;
+  rowsPerPage?: number;
   page: number;
   handleChangePage: (event: unknown, newPage: number) => void;
-  handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleChangeRowsPerPage?: (event: React.ChangeEvent<HTMLInputElement>) => void
 
 }
 
-export const Table = ({ rows, cells, loading,rowsPerPage, page, handleChangePage, handleChangeRowsPerPage }: TableProps) => {
+export const Table = ({ rows, cells, loading, rowsPerPage, page, handleChangePage, handleChangeRowsPerPage }: TableProps) => {
   return (
     <TableContainer component={Paper}>
       <TableMUI sx={{ minWidth: 650 }} aria-label="simple table">
@@ -68,7 +69,7 @@ export const Table = ({ rows, cells, loading,rowsPerPage, page, handleChangePage
           <CircularProgress />
         </Box>
       }
-      <TablePagination
+      {/*<TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
         count={rows?.length || 0}
@@ -76,7 +77,8 @@ export const Table = ({ rows, cells, loading,rowsPerPage, page, handleChangePage
         page={!rows?.length || rows?.length <= 0 ? 0 : page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+    />*/}
+      <Pagination count={rows?.length || 0} page={page} onChange={handleChangePage} />
     </TableContainer>
   )
 }
