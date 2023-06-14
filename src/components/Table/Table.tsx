@@ -2,6 +2,7 @@ import {
   Box,
   CircularProgress,
   IconButton,
+  Link,
   Paper, 
   TableBody, 
   TableCell, 
@@ -13,6 +14,7 @@ import {
 import TableMUI from '@mui/material/Table'
 import InfoIcon from '@mui/icons-material/Info'
 import { Rows } from "../../types/table"
+import { Link as  LinkRouter } from "react-router-dom"
 
 type Cells = {
   label: string
@@ -51,9 +53,11 @@ export const Table = ({ rows, cells, loading,rowsPerPage, page, handleChangePage
               </TableCell>
               <TableCell component="td" scope="row" align="left">{row.body}</TableCell>
               <TableCell component="td" scope="row" align="left">
-                  <IconButton>
+                <IconButton sx={{ width: 20, height: 20}}>
+                  <Link component={LinkRouter} to="/">
                     <InfoIcon />
-                  </IconButton> 
+                  </Link>
+                </IconButton> 
               </TableCell>
             </TableRow>
           ))}

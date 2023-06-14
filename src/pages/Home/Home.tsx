@@ -8,16 +8,16 @@ import { getUsers } from "../../services/users"
 export const Home = () => {
   const { data, isFetching } = useQuery({ queryKey: ['users'], queryFn: getUsers})
 
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(5)
 
   const visibleRows = useMemo(
     () =>
     data?.data.slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
-      ),
-    [data?.data, page, rowsPerPage],
+      page * rowsPerPage,
+      page * rowsPerPage + rowsPerPage,
+    ),
+    [data?.data, page, rowsPerPage]
   )
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -26,7 +26,7 @@ export const Home = () => {
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(Number(event.target.value))
-    setPage(0)
+    setPage(1)
   }
 
   return (
