@@ -13,6 +13,7 @@ import { ThemeProvider } from "@mui/material"
 import { theme } from './config/mui'
 import { Home } from './pages/Home/Home'
 import { Error } from './routes/components/Error'
+import { Details } from './pages/Details/Details'
 
 
 const router = createBrowserRouter([
@@ -27,6 +28,19 @@ const router = createBrowserRouter([
       {
         path: '*',
         element: <Error />
+      },
+      {
+        path: '/posts',
+        async lazy() {
+          const { Posts } = await import('./pages/Posts/Posts');
+          return {
+            Component: Posts
+          };
+        },
+      },
+      {
+        path: '/posts/:id',
+        element: <Details />
       }
     ]
   },

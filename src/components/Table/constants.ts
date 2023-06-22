@@ -1,12 +1,12 @@
 export const cells = [
   {
-    label: 'Id do usuário'
+    label: 'Id'
   },
   {
     label: 'Título'
   },
   {
-    label: 'Status'
+    label: 'Descrição'
   },
   {
     label: 'Detalhes'
