@@ -1,12 +1,12 @@
 import { useState, useMemo } from 'react'
-import { Container } from "@mui/material"
+import { Container, Box, LinearProgress } from "@mui/material"
 import { Table } from "../../components/Table/Table"
 import { cells } from "../../components/Table/constants"
 import { useQuery } from "react-query"
 import { getUsers } from "../../services/users"
 
 export const Posts = () => {
-  const { data, isFetching } = useQuery({ queryKey: ['users'], queryFn: getUsers})
+  const { data, isLoading, isFetching } = useQuery({ queryKey: ['users'], queryFn: getUsers})
 
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(5)
@@ -31,10 +31,15 @@ export const Posts = () => {
   
   return (
     <Container sx={{ mt: 3}}>
+      {isFetching &&  
+        <Box sx={{ display: 'flex' }}>
+          <LinearProgress />
+        </Box>
+      }
       <Table 
         rows={visibleRows} 
         cells={cells} 
-        loading={isFetching} 
+        loading={isLoading} 
         page={page}
         rowsPerPage={rowsPerPage}
         handleChangePage={handleChangePage}

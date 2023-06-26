@@ -1,4 +1,5 @@
 import { Paper, Grid, Typography } from "@mui/material"
+import { useParams } from "react-router-dom";
 
 type Detail = {
   userId: number;
@@ -12,6 +13,8 @@ interface Props {
 }
 
 export const Details = () => {
+  const params = useParams()
+  console.log(params)
   return (
     <Paper>
       <Grid container spacing={2}>

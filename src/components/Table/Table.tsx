@@ -55,7 +55,7 @@ export const Table = ({ rows, cells, loading, rowsPerPage, page, handleChangePag
               <TableCell component="td" scope="row" align="left">{row.body}</TableCell>
               <TableCell component="td" scope="row" align="left">
                 <IconButton sx={{ width: 20, height: 20}}>
-                  <Link component={LinkRouter} to="/">
+                  <Link component={LinkRouter} to={`/posts/${row.id}`}>
                     <InfoIcon />
                   </Link>
                 </IconButton> 
