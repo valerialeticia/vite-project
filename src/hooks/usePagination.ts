@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Rows } from "../types/table"
+import { Rows } from "../types/general"
 
 type RangeProps = {
   rows: Rows[];

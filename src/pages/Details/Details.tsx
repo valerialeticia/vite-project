@@ -1,35 +1,29 @@
-import { Paper, Grid, Typography } from "@mui/material"
+import { Box, Paper, Grid, Typography } from "@mui/material"
+import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import { getPostDetails } from "../../services/users";
+import { Detail } from "../../types/general";
 
-type Detail = {
-  userId: number;
-  id: number;
-  title: string;
-  body: string
-}
-interface Props {
-  detail?: Detail;
-  loading?: boolean
-}
 
 export const Details = () => {
   const params = useParams()
-  console.log(params)
+
+  const { data: detailsQuery } = useQuery<Detail>({ 
+    queryKey: ['details'], 
+    queryFn: () => getPostDetails(params?.id)
+  })
+
   return (
-    <Paper>
+    <Paper elevation={0} sx={{ p: 2 }}>
       <Grid container spacing={2}>
-        <Grid item xs={8}>
-          <Typography>xs=8</Typography>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography>xs=4</Typography>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography>xs=4</Typography>
-        </Grid>
-        <Grid item xs={8}>
-          <Typography>xs=8</Typography>
-        </Grid>
+          <Box component="div">
+            <Grid item xs={8}>
+              <Typography>{detailsQuery?.title}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography>{detailsQuery?.body}</Typography>
+            </Grid>
+          </Box>
       </Grid>
     </Paper>
   )

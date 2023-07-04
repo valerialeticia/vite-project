@@ -1,12 +1,12 @@
 import { useState, useMemo } from 'react'
-import { Container, Box, LinearProgress } from "@mui/material"
+import { Container, Box, LinearProgress, SelectChangeEvent } from "@mui/material"
 import { Table } from "../../components/Table/Table"
 import { cells } from "../../components/Table/constants"
 import { useQuery } from "react-query"
-import { getUsers } from "../../services/users"
+import { getPosts } from "../../services/users"
 
 export const Posts = () => {
-  const { data, isLoading, isFetching } = useQuery({ queryKey: ['users'], queryFn: getUsers})
+  const { data, isLoading, isFetching } = useQuery({ queryKey: ['posts'], queryFn: getPosts})
 
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(5)
@@ -20,13 +20,12 @@ export const Posts = () => {
     [data?.data, page, rowsPerPage]
   )
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handlePageChange = (event: unknown, newPage: number) => {
     setPage(newPage)
   }
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(Number(event.target.value))
-    setPage(1)
+  const handleRowsPerPageChange = (event: SelectChangeEvent) => {
+    setRowsPerPage(Number(event.target.value as string))
   }
   
   return (
@@ -42,8 +41,8 @@ export const Posts = () => {
         loading={isLoading} 
         page={page}
         rowsPerPage={rowsPerPage}
-        handleChangePage={handleChangePage}
-        handleChangeRowsPerPage={handleChangeRowsPerPage}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPageChange}
       />
     </Container>
   )
