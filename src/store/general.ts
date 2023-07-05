@@ -1,17 +1,20 @@
+import { AlertColor } from "@mui/material";
 import { create } from "zustand";
 
 type SnackbarStoreType = {
   open: boolean;
-  message: string
+  message: string;
+  severity: AlertColor;
   onClose: (event: React.SyntheticEvent | Event, reason?: string) => void;
-  addMessage: (message: string, open: boolean) => void
+  handleAddMessage: (message: string, severity?: AlertColor) => void
 }
 
 export const useSnackbarStore = create<SnackbarStoreType>(
   (set, get) => ({
     open: false,
     message: '',
+    severity: 'info',
     onClose: () => set((oldValue) => ({ open: !oldValue.open })),
-    addMessage: () => set((oldValue) => ({ message: oldValue.message, open: true}))
+    handleAddMessage: (message, severity) => set(() => ({message, severity, open: true}))
   })
 )

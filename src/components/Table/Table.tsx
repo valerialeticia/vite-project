@@ -18,11 +18,11 @@ import {
   TableRow
 } from "@mui/material"
 import TableMUI from '@mui/material/Table'
-import InfoIcon from '@mui/icons-material/Info'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import { Rows } from "../../types/general"
+import { Rows } from "@/types/general"
 import { Link as  LinkRouter } from "react-router-dom"
-import { useSnackbarStore } from '../../store/general'
+import { useSnackbarStore } from '@/store/general'
+import { common } from '@mui/material/colors'
 
 type Cells = {
   label: string
@@ -34,7 +34,8 @@ interface TableProps {
   rowsPerPage?: number;
   page: number;
   onPageChange: (event: unknown, newPage: number) => void;
-  onRowsPerPageChange?: (event: SelectChangeEvent) => void
+  onRowsPerPageChange?: (event: SelectChangeEvent) => void;
+  handleRemoveRow: (id: string) => void
 }
 
 export const Table = ({ 
@@ -44,11 +45,12 @@ export const Table = ({
   rowsPerPage, 
   page, 
   onPageChange, 
-  onRowsPerPageChange 
+  onRowsPerPageChange,
+  handleRemoveRow 
 }: TableProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
-  const addMessage = useSnackbarStore(state => state.addMessage)
+  const handleAddMessage = useSnackbarStore(state => state.handleAddMessage)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -104,15 +106,15 @@ export const Table = ({
                   MenuListProps={{
                     'aria-labelledby': 'basic-button',
                   }}
+                  sx={{ boxShadow: 'none' }}
                 >
                   <MenuItem sx={{ display: 'flex', alignItems: 'center'}} onClick={handleClose}>
-                    <Link component={LinkRouter} to={`/posts/${row.id}`} sx={{ mr: 0.5 }}>
-                      <InfoIcon sx={{ width: 25, height: 25, mt: 0.5 }} /> 
+                    <Link component={LinkRouter} to={`/posts/${row.id}`} color={common.black} sx={{ mr: 0.5, textDecoration: 'none'}}>
                       Info
                     </Link>
                   </MenuItem>
-                  <MenuItem onClick={() => addMessage('Testandoooooooo!!', true)}>Snackbar aqui</MenuItem>
-                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                  <MenuItem onClick={() => handleAddMessage('deu ruim :C', 'error')}>Snackbar aqui</MenuItem>
+                  <MenuItem onClick={() => handleRemoveRow(row.id.toString())}>Remover</MenuItem>
                 </Menu>
               </TableCell>
             </TableRow>

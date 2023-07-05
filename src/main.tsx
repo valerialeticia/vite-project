@@ -10,12 +10,12 @@ import {
 } from 'react-query'
 import Root from "./routes/root"
 import { ThemeProvider } from "@mui/material"
+import CssBaseline from "@mui/material/CssBaseline"
 import { theme } from './config/mui'
 import { Home } from './pages/Home/Home'
 import { Error } from './routes/components/Error'
 import { Details } from './pages/Details/Details'
-import CssBaseline from "@mui/material/CssBaseline"
-//import { Snackbar } from './components/Snackbar/Snackbar'
+import { Snackbar } from './components/Snackbar/Snackbar'
 
 
 const router = createBrowserRouter([
@@ -57,7 +57,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <RouterProvider router={router} />
-        {/*<Snackbar />*/}
+        <Snackbar />
       </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>
