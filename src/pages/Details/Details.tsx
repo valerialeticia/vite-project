@@ -21,32 +21,36 @@ export const Details = () => {
       <Grid container spacing={2}>
         <Grid item xs={4}>
           <Typography sx={{fontWeight: 'bold'}}>Nome:</Typography>
-          <Typography>{query.get("name")}</Typography>
+          <Typography>{query.get('name')}</Typography>
         </Grid>
         <Grid item xs={4}>
         <Typography sx={{fontWeight: 'bold'}}>Viagens:</Typography>
-          <Typography>{query.get("trips")}</Typography>
+          <Typography>{query.get('trips')}</Typography>
         </Grid>
-        {airline.map((item) => (
-          <>
-            <Grid item xs={4}>
-              <Typography sx={{fontWeight: 'bold'}}>Linha aérea:</Typography>
-              <Typography>{item.name}</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography sx={{fontWeight: 'bold'}}>País:</Typography>
-              <Typography>{item.country}</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography sx={{fontWeight: 'bold'}}>Slogan:</Typography>
-              <Typography>{item.slogan}</Typography>
-            </Grid>
-          </>
-        ))}
-        <Grid item xs={8}>
+        <Grid item xs={4}>
           <Button onClick={() => handleAddMessage('TESTE 2')}>Snackbar</Button>
         </Grid>
       </Grid>
+      {airline.map((item, index) => (
+        <Grid container spacing={2} key={index} mt={3}>
+          <Grid item xs={4}>
+            <Typography sx={{fontWeight: 'bold'}}>Id:</Typography>
+            <Typography>{item.id.toString()}</Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography sx={{fontWeight: 'bold'}}>Linha aérea:</Typography>
+            <Typography>{item.name}</Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography sx={{fontWeight: 'bold'}}>País:</Typography>
+            <Typography>{item.country}</Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography sx={{fontWeight: 'bold'}}>Slogan:</Typography>
+            <Typography>{item.slogan}</Typography>
+          </Grid>
+        </Grid>
+      ))}
     </Paper>
   )
 }
