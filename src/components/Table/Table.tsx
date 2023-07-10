@@ -4,7 +4,6 @@ import {
   CircularProgress,
   IconButton,
   FormControl,
-  Link,
   Menu,
   MenuItem,
   Pagination,
@@ -48,16 +47,19 @@ export const Table = ({
   onRowsPerPageChange
 }: TableProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const [rowInfo, setRowInfo] = useState<PassengerDataResponse | null>(null)
   const open = Boolean(anchorEl)
   const handleAddMessage = useSnackbarStore(state => state.handleAddMessage)
   const navigate = useNavigate()
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, row: PassengerDataResponse) => {
+    setAnchorEl(event.currentTarget)
+    setRowInfo(row)
   }
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setAnchorEl(null)
+    setRowInfo(null)
   }
 
   const goToDetails = (row: PassengerDataResponse) => (
@@ -100,29 +102,29 @@ export const Table = ({
                   aria-controls={open ? 'basic-menu' : undefined}
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClick}
+                  onClick={(event) => handleClick(event, row)}
                   sx={{ width: 20, height: 20}}
                 >
                   <MoreVertIcon />
                 </IconButton> 
-                <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                  }}
-                  sx={{ boxShadow: 'none' }}
-                >
-                  <MenuItem onClick={() => handleAddMessage('deu ruim :C', 'error')}>Snackbar aqui</MenuItem>
-                  <MenuItem onClick={() => goToDetails(row)}>Info</MenuItem>
-                </Menu>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </TableMUI>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+        sx={{ boxShadow: 'none' }}
+      >
+        <MenuItem onClick={() => handleAddMessage('deu ruim :C', 'error')}>Snackbar aqui</MenuItem>
+        <MenuItem onClick={() => goToDetails(rowInfo as PassengerDataResponse)}>Info</MenuItem>
+      </Menu>
       {loading &&  
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 2 }}>
           <CircularProgress />
