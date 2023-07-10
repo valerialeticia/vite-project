@@ -12,7 +12,7 @@ export type Detail = {
   body: string
 }
 
-type Airline = {
+export type Airline = {
   _id: string;
   id: number;
   name: string;

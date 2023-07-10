@@ -10,20 +10,8 @@ import { useSnackbarStore } from '@/store/general'
 export const Posts = () => {
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
-  const [rows, setRows] = useState<PassengerDataResponse[]>([]) 
   const handleAddMessage = useSnackbarStore(state => state.handleAddMessage)
-  
-  /*const { data, isLoading, isFetching } = useQuery({ 
-    queryKey: ['posts', {page: page, rowsPerPage: rowsPerPage}], 
-    queryFn: getPosts,
-    keepPreviousData: true,
-    onSuccess() {
-      const startIndex = (page - 1 ) * rowsPerPage
-      const endIndex = startIndex + rowsPerPage
-      const response = data?.data.slice(startIndex, endIndex)
-      setRows(response)
-    }
-  })*/
+
 
   const params = {
     page: page,
@@ -33,10 +21,7 @@ export const Posts = () => {
   const { data, isLoading, isFetching } = useQuery({ 
     queryKey: ['passengers', {...params}],
     queryFn: () => getPassengers(params),
-    keepPreviousData: true,
-    onSuccess() {
-      setRows(data?.data as PassengerDataResponse[])
-    }
+    keepPreviousData: true
   })
 
   const handlePageChange = (event: unknown, newPage: number) => {
@@ -45,13 +30,6 @@ export const Posts = () => {
 
   const handleRowsPerPageChange = (event: SelectChangeEvent) => {
     setRowsPerPage(Number(event.target.value as string))
-  }
-
-  const handleRemoveRow = (id: string) => {
-    //TODO fazer esse remove funcionar e adicionar o snaback
-    //setRows(rows => rows?.filter((row) => row.id.toString() !== id))
-    handleAddMessage('Removido com sucesso!', 'success')
-    console.log('PASSOU AQUI@@@')
   }
   
   return (
@@ -62,7 +40,7 @@ export const Posts = () => {
         </Box>
       }
       <Table 
-        rows={rows} 
+        rows={data?.data as PassengerDataResponse[]} 
         cells={cells} 
         loading={isLoading} 
         page={page}
@@ -70,7 +48,6 @@ export const Posts = () => {
         rowsPerPage={rowsPerPage}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleRowsPerPageChange}
-        handleRemoveRow={handleRemoveRow}
       />
     </Container>
   )

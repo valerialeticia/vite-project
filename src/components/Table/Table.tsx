@@ -20,9 +20,8 @@ import {
 import TableMUI from '@mui/material/Table'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { PassengerDataResponse } from "@/types/general"
-import { Link as  LinkRouter, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useSnackbarStore } from '@/store/general'
-import { common } from '@mui/material/colors'
 
 type Cells = {
   label: string
@@ -35,8 +34,7 @@ interface TableProps {
   page: number;
   count: number;
   onPageChange: (event: unknown, newPage: number) => void;
-  onRowsPerPageChange?: (event: SelectChangeEvent) => void;
-  handleRemoveRow: (id: string) => void
+  onRowsPerPageChange?: (event: SelectChangeEvent) => void
 }
 
 export const Table = ({ 
@@ -47,8 +45,7 @@ export const Table = ({
   page, 
   count,
   onPageChange, 
-  onRowsPerPageChange,
-  handleRemoveRow 
+  onRowsPerPageChange
 }: TableProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
@@ -118,14 +115,8 @@ export const Table = ({
                   }}
                   sx={{ boxShadow: 'none' }}
                 >
-                  {/*<MenuItem sx={{ display: 'flex', alignItems: 'center'}} onClick={handleClose}>
-                    <Link component={LinkRouter} to={`/posts/${row.id}`} color={common.black} sx={{ mr: 0.5, textDecoration: 'none'}}>
-                      Info
-                    </Link>
-                </MenuItem>*/}
                   <MenuItem onClick={() => handleAddMessage('deu ruim :C', 'error')}>Snackbar aqui</MenuItem>
                   <MenuItem onClick={() => goToDetails(row)}>Info</MenuItem>
-                  {/*<MenuItem onClick={() => handleRemoveRow(row.id.toString())}>Remover</MenuItem>*/}
                 </Menu>
               </TableCell>
             </TableRow>
