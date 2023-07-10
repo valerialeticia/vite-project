@@ -1,30 +1,37 @@
 import { Box, Paper, Grid, Typography, Button } from "@mui/material"
-import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
-import { getPostDetails } from "../../services/users";
-import { Detail } from "../../types/general";
+import { useLocation } from "react-router-dom";
 import { useSnackbarStore } from "../../store/general";
+import { useMemo } from "react";
 
 
 export const Details = () => {
-  const params = useParams()
-
-  const { data: detailsQuery } = useQuery<Detail>({ 
-    queryKey: ['details'], 
-    queryFn: () => getPostDetails(params?.id)
-  })
-
   const handleAddMessage = useSnackbarStore(state => state.handleAddMessage)
 
+  const useQueryParams = () => {
+    const location = useLocation()
+    console.log('location >>>', location)
+    return useMemo(() => new URLSearchParams(location.search), [location.search])
+  }
+
+  const query = useQueryParams()
+  console.log(query)
+
   return (
-    <Paper elevation={0} sx={{ p: 2 }}>
+    <Paper elevation={0} sx={{ p: 4 }}>
       <Grid container spacing={2}>
           <Box component="div">
             <Grid item xs={8}>
-              <Typography>{detailsQuery?.title}</Typography>
+              <Typography>{query.get("name")}</Typography>
             </Grid>
             <Grid item xs={4}>
-              <Typography>{detailsQuery?.body}</Typography>
+              <Typography>{query.get("trips")}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <>
+              {Array.from(query.values()).map((item) => (
+                <Typography key={item}>{/*item.name*/}-</Typography>
+              ))}
+              </>
             </Grid>
             <Grid>
               <Button onClick={() => handleAddMessage('TESTE 2')}>Snackbar</Button>

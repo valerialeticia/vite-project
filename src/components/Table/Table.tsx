@@ -19,8 +19,8 @@ import {
 } from "@mui/material"
 import TableMUI from '@mui/material/Table'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import { Rows } from "@/types/general"
-import { Link as  LinkRouter } from "react-router-dom"
+import { PassengerDataResponse } from "@/types/general"
+import { Link as  LinkRouter, useNavigate } from "react-router-dom"
 import { useSnackbarStore } from '@/store/general'
 import { common } from '@mui/material/colors'
 
@@ -28,11 +28,12 @@ type Cells = {
   label: string
 }
 interface TableProps {
-  rows: Rows[];
+  rows: PassengerDataResponse[];
   cells: Cells[];
   loading: boolean;
   rowsPerPage?: number;
   page: number;
+  count: number;
   onPageChange: (event: unknown, newPage: number) => void;
   onRowsPerPageChange?: (event: SelectChangeEvent) => void;
   handleRemoveRow: (id: string) => void
@@ -44,6 +45,7 @@ export const Table = ({
   loading, 
   rowsPerPage, 
   page, 
+  count,
   onPageChange, 
   onRowsPerPageChange,
   handleRemoveRow 
@@ -51,6 +53,7 @@ export const Table = ({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleAddMessage = useSnackbarStore(state => state.handleAddMessage)
+  const navigate = useNavigate()
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -59,6 +62,14 @@ export const Table = ({
   const handleClose = () => {
     setAnchorEl(null);
   }
+
+  const goToDetails = (row: PassengerDataResponse) => (
+    navigate({
+      pathname: '/posts/detail',
+      search: `?name=${row.name}&trips=${row.trips}&airline=${encodeURI(JSON.stringify(row.airline))}`
+    })
+  )
+
   return (
     <TableContainer component={Paper}>
       <TableMUI sx={{ minWidth: 650 }} aria-label="simple table">
@@ -80,13 +91,12 @@ export const Table = ({
           {rows?.map(row => (
             <TableRow
               component="tr"
-              key={row.id}
+              key={row.name}
             >
-              <TableCell component="td" scope="row" align="left">{row.id.toString()}</TableCell>
               <TableCell component="td" scope="row" align="left">
-                {row.title}
+                {row.name}
               </TableCell>
-              <TableCell component="td" scope="row" align="left">{row.body}</TableCell>
+              <TableCell component="td" scope="row" align="left">{row.trips.toString()}</TableCell>
               <TableCell component="td" scope="row" align="left">
                 <IconButton 
                   id="basic-button"
@@ -108,13 +118,14 @@ export const Table = ({
                   }}
                   sx={{ boxShadow: 'none' }}
                 >
-                  <MenuItem sx={{ display: 'flex', alignItems: 'center'}} onClick={handleClose}>
+                  {/*<MenuItem sx={{ display: 'flex', alignItems: 'center'}} onClick={handleClose}>
                     <Link component={LinkRouter} to={`/posts/${row.id}`} color={common.black} sx={{ mr: 0.5, textDecoration: 'none'}}>
                       Info
                     </Link>
-                  </MenuItem>
+                </MenuItem>*/}
                   <MenuItem onClick={() => handleAddMessage('deu ruim :C', 'error')}>Snackbar aqui</MenuItem>
-                  <MenuItem onClick={() => handleRemoveRow(row.id.toString())}>Remover</MenuItem>
+                  <MenuItem onClick={() => goToDetails(row)}>Info</MenuItem>
+                  {/*<MenuItem onClick={() => handleRemoveRow(row.id.toString())}>Remover</MenuItem>*/}
                 </Menu>
               </TableCell>
             </TableRow>
@@ -140,7 +151,7 @@ export const Table = ({
             }}
           >
             {
-              ['5', '10', '20'].map((item, index) => (
+              ['10', '20', '50'].map((item, index) => (
                 <MenuItem 
                   value={item} 
                   key={index}
@@ -151,7 +162,7 @@ export const Table = ({
             }
           </Select>
         </FormControl>
-      <Pagination count={rows?.length || 0} page={page} onChange={onPageChange} />
+      <Pagination count={count} page={page} onChange={onPageChange} />
     </TableContainer>
   )
 }
