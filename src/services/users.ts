@@ -1,15 +1,5 @@
 import api from "../config/axios"
-import { Detail, PassengerDataResponse } from "../types/general"
-
-/*export const getPosts = async () => {
-  return await api.get('/posts')
-}
-
-export const getPostDetails = async (id: string | undefined) => {
-  const response = await api.get<Detail>(`/posts/${id}`)
-  return response.data
-}*/
-
+import { PassengerDataResponse } from "../types/general"
 
 type PassengerParams = {
   page: number;
@@ -24,6 +14,5 @@ type PassengerResponse = {
 
 export const getPassengers = async (params: PassengerParams) => {
   const { data } = await api.get<PassengerResponse>('v1/passenger', {params}) 
-  console.log('RESSS SERVICEE', data)
   return data
 }

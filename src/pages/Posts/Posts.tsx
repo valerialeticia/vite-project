@@ -5,12 +5,10 @@ import { cells } from "@/components/Table/constants"
 import { useQuery } from "react-query"
 import { getPassengers } from "@/services/users"
 import { PassengerDataResponse } from '@/types/general'
-import { useSnackbarStore } from '@/store/general'
 
 export const Posts = () => {
   const [page, setPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(10)
-  const handleAddMessage = useSnackbarStore(state => state.handleAddMessage)
 
 
   const params = {
@@ -24,7 +22,7 @@ export const Posts = () => {
     keepPreviousData: true
   })
 
-  const handlePageChange = (event: unknown, newPage: number) => {
+  const handlePageChange = (_: unknown, newPage: number) => {
     setPage(newPage)
   }
 
