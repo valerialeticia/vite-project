@@ -1,5 +1,5 @@
-import api from "../config/axios"
-import { PassengerDataResponse } from "../types/general"
+import api from "@/config/axios"
+import { PassengerDataResponse } from "@/types/general"
 
 type PassengerParams = {
   page: number;

@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { 
   Box,
-  CircularProgress,
   IconButton,
   FormControl,
   Menu,
@@ -21,6 +20,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { PassengerDataResponse } from "@/types/general"
 import { useNavigate } from "react-router-dom"
 import { useSnackbarStore } from '@/store/general'
+import { CircularProgress } from '../CircularProgress'
 
 type Cells = {
   label: string

@@ -1,54 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom"
-import {
-  QueryClient,
-  QueryClientProvider,
-} from 'react-query'
-import Root from "./routes/root"
+import { RouterProvider } from "react-router-dom"
+import { QueryClientProvider } from 'react-query'
 import { ThemeProvider } from "@mui/material"
 import CssBaseline from "@mui/material/CssBaseline"
-import { theme } from './config/mui'
-import { Home } from './pages/Home/Home'
-import { Error } from './routes/components/Error'
-import { Details } from './pages/Details/Details'
-import { Snackbar } from './components/Snackbar/Snackbar'
-
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element:  <Root />,
-    children: [
-      {
-        index: true,
-        element: <Home />
-      },
-      {
-        path: '*',
-        element: <Error />
-      },
-      {
-        path: '/posts',
-        async lazy() {
-          const { Posts } = await import('./pages/Posts/Posts');
-          return {
-            Component: Posts
-          };
-        },
-      },
-      {
-        path: '/posts/detail',
-        element: <Details />
-      }
-    ]
-  },
-]);
-
-const queryClient = new QueryClient()
+import { theme } from '@/config/mui'
+import { Snackbar } from '@/components/Snackbar'
+import { routes } from '@/routes/index'
+import { queryClient } from '@/config/react-query'
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -56,9 +15,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <RouterProvider router={router} />
+        <RouterProvider router={routes} />
         <Snackbar />
       </ThemeProvider>
     </QueryClientProvider>
   </React.StrictMode>
-);
+)

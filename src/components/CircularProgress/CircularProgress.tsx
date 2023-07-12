@@ -1,8 +1,8 @@
-import Box from '@mui/material/Box';
+import Box from '@mui/material/Box'
 import CircularMUI, {
   circularProgressClasses,
   CircularProgressProps,
-} from '@mui/material/CircularProgress';
+} from '@mui/material/CircularProgress'
 
 
 export const CircularProgress = (props: CircularProgressProps) => {
@@ -11,7 +11,7 @@ export const CircularProgress = (props: CircularProgressProps) => {
       <CircularMUI
         variant="determinate"
         sx={{
-          color: '#AAB3DF',
+          color: '#AAB3DF'
         }}
         size={40}
         thickness={4}
@@ -26,8 +26,8 @@ export const CircularProgress = (props: CircularProgressProps) => {
           position: 'absolute',
           left: 0,
           [`& .${circularProgressClasses.circle}`]: {
-            strokeLinecap: 'round',
-          },
+            strokeLinecap: 'round'
+          }
         }}
         size={40}
         thickness={4}
