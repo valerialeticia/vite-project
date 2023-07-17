@@ -16,3 +16,10 @@ export type PassengerDataResponse = {
   airline: Airline[];
   __v: number
 }
+
+export type Items = {
+  body: string; 
+  id: number;
+  title: string;
+  userId: number
+}
