@@ -1,9 +1,15 @@
 import api from "@/config/axios"
-import { Items } from "@/types/general";
 
 type PostParams = {
   pageParam: number;
   title?: string
+}
+
+type Items = {
+  body: string; 
+  id: number;
+  title: string;
+  userId: number
 }
 
 export const getPosts = async ({pageParam, title}: PostParams) => {
