@@ -1,5 +1,5 @@
-import { Box, Container, Link as LinkMUI } from "@mui/material"
-import { Link } from "react-router-dom"
+import { Box, Container, Link as LinkMUI } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 export const Home = () => {
   return (

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
-import { useInfiniteQuery } from "react-query"
-import { Box, Button, Paper, TextField, Typography } from "@mui/material"
-import { getPosts } from "@/services/infinite-query"
+import { useInfiniteQuery } from 'react-query'
+import { Box, Button, Paper, TextField, Typography } from '@mui/material'
+import { getPosts } from '@/services/infinite-query'
 import { grey } from '@mui/material/colors'
 import { CircularProgress } from '@/components/CircularProgress'
 
@@ -70,7 +70,11 @@ export const InfiniteQuery = () => {
               <Typography variant="h6" sx={{fontWeight: 'bold'}}>{item.title}</Typography>
               <Typography variant="body2" color={grey[600]}>{item.body}</Typography>
             </Box>
-          ))
+          )) || (
+            <Typography variant="body2" color={grey[600]}>
+              Nenhum post encontrado.
+            </Typography>
+          )
         }
         {isLoading || isFetchingNextPage && (
           <Box sx={{display: 'flex', justifyContent: 'center'}}>

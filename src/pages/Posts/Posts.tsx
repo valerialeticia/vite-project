@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { Container, Box, LinearProgress, SelectChangeEvent } from "@mui/material"
-import { Table } from "@/components/Table"
-import { cells } from "@/components/Table/constants"
-import { useQuery } from "react-query"
-import { getPassengers } from "@/services/users"
+import { useQuery } from 'react-query'
+import { Container, Box, LinearProgress, SelectChangeEvent } from '@mui/material'
+import { Table } from '@/components/Table'
+import { cells } from '@/components/Table/constants'
+import { getPassengers } from '@/services/users'
 import { PassengerDataResponse } from '@/types/general'
 
 export const Posts = () => {

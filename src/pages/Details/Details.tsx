@@ -1,8 +1,8 @@
-import { useMemo } from "react"
-import { useLocation } from "react-router-dom"
-import { Paper, Grid, Typography, Button } from "@mui/material"
-import { useSnackbarStore } from "@/store/general"
-import { Airline } from "@/types/general"
+import { useMemo } from 'react'
+import { useLocation } from 'react-router-dom'
+import { Paper, Grid, Typography, Button } from '@mui/material'
+import { useSnackbarStore } from '@/store/general'
+import { Airline } from '@/types/general'
 
 
 export const Details = () => {

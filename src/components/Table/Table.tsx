@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { 
   Box,
   IconButton,
@@ -14,11 +15,10 @@ import {
   TableContainer, 
   TableHead, 
   TableRow
-} from "@mui/material"
+} from '@mui/material'
 import TableMUI from '@mui/material/Table'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import { PassengerDataResponse } from "@/types/general"
-import { useNavigate } from "react-router-dom"
+import { PassengerDataResponse } from '@/types/general'
 import { useSnackbarStore } from '@/store/general'
 import { CircularProgress } from '../CircularProgress'
 
