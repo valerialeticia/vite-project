@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 import { getPosts } from '@/services/infinite-query'
@@ -12,7 +12,7 @@ export const InfiniteQuery = () => {
 
   const {data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage} = useInfiniteQuery(
     ['posts', [title]],
-    ({pageParam = 1 }) => getPosts({pageParam, title}), 
+    ({pageParam = 1 }) => getPosts({pageParam, title, limit: 20}), 
     {
       getNextPageParam: (lastPage , allPages) => {
         return lastPage.length ? allPages.length + 1 : undefined
@@ -25,6 +25,17 @@ export const InfiniteQuery = () => {
       return [...accPages, ...page]
     }, [])
   }, [data])
+
+  /*useEffect(() => {
+    window.addEventListener('scroll', () =>  {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        if (hasNextPage) {
+          fetchNextPage()
+        }
+      }
+    })
+  }, [hasNextPage, fetchNextPage])*/
+  
 
   return (
     <Paper sx={{p: 2.5, m: 3}}>
@@ -70,11 +81,7 @@ export const InfiniteQuery = () => {
               <Typography variant="h6" sx={{fontWeight: 'bold'}}>{item.title}</Typography>
               <Typography variant="body2" color={grey[600]}>{item.body}</Typography>
             </Box>
-          )) || (
-            <Typography variant="body2" color={grey[600]}>
-              Nenhum post encontrado.
-            </Typography>
-          )
+          ))
         }
         {isLoading || isFetchingNextPage && (
           <Box sx={{display: 'flex', justifyContent: 'center'}}>

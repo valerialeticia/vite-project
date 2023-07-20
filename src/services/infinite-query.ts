@@ -2,7 +2,8 @@ import api from '@/config/axios'
 
 type PostParams = {
   pageParam: number;
-  title?: string
+  title?: string;
+  limit: number;
 }
 
 type Items = {
@@ -12,8 +13,8 @@ type Items = {
   userId: number
 }
 
-export const getPosts = async ({pageParam, title}: PostParams) => {
+export const getPosts = async ({pageParam, title, limit}: PostParams) => {
   const titleParam = title ? `&title=${title.toLowerCase()}` : ''
-  const response = await api.get<Items[]>(`/posts?_page=${pageParam}${titleParam}`)
+  const response = await api.get<Items[]>(`/posts?_page=${pageParam}${titleParam}&_limit=${limit}`)
   return response.data
 }
