@@ -64,6 +64,11 @@ export const InfiniteQuery = () => {
             Limpar
           </Button>
         </Box>
+        {isLoading || isFetchingNextPage && (
+          <Box sx={{display: 'flex', justifyContent: 'center'}}>
+            <CircularProgress />
+          </Box>
+        )}
         <InfiniteScroll
         hasMore={hasNextPage || false}
         next={fetchNextPage}
