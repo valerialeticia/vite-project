@@ -72,15 +72,10 @@ export const InfiniteQuery = () => {
         <InfiniteScroll
         hasMore={hasNextPage || false}
         next={fetchNextPage}
-        // current page / length of the products array
-        // it become a bit messy because that api is using skip instead of page
         dataLength={items?.length || 0}
-				//loading component
         loader={<CircularProgress />}
-				// component of showing when the end of data 
         endMessage={<Typography variant="h6">FIM!</Typography>}
       >
-        {/* first loop is for check how many pages have */}
         {items?.map(item => (
             <Box
               component="section" 
