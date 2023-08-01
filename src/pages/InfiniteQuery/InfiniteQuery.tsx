@@ -1,10 +1,9 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
 import { Box, Button, Paper, TextField, Typography } from '@mui/material'
 import { getPosts } from '@/services/infinite-query'
 import { grey } from '@mui/material/colors'
 import { CircularProgress } from '@/components/CircularProgress'
-import InfiniteScroll from "react-infinite-scroll-component"
 
 
 
@@ -26,17 +25,6 @@ export const InfiniteQuery = () => {
       return [...accPages, ...page]
     }, [])
   }, [data])
-
-  /*useEffect(() => {
-    window.addEventListener('scroll', () =>  {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        if (hasNextPage) {
-          fetchNextPage()
-        }
-      }
-    })
-  }, [hasNextPage, fetchNextPage])*/
-  
 
   return (
     <Paper sx={{p: 2.5, m: 3}}>
@@ -69,38 +57,7 @@ export const InfiniteQuery = () => {
             <CircularProgress />
           </Box>
         )}
-        <InfiniteScroll
-        hasMore={hasNextPage || false}
-        next={fetchNextPage}
-        // current page / length of the products array
-        // it become a bit messy because that api is using skip instead of page
-        dataLength={items?.length || 0}
-				//loading component
-        loader={<CircularProgress />}
-				// component of showing when the end of data 
-        endMessage={<Typography variant="h6">FIM!</Typography>}
-      >
-        {/* first loop is for check how many pages have */}
-        {items?.map(item => (
-            <Box
-              component="section" 
-              key={item.id} 
-              sx={{
-                border: '1px solid #dedede', 
-                borderRadius: '0.3rem ', 
-                p: 1.5,
-                mb: 2,
-                '&:last-child': {
-                  mb: 0
-                } 
-              }}
-            >
-              <Typography variant="h6" sx={{fontWeight: 'bold'}}>{item.title}</Typography>
-              <Typography variant="body2" color={grey[600]}>{item.body}</Typography>
-            </Box>
-          ))}
-      </InfiniteScroll>
-        {/*
+        {
           items?.map(item => (
             <Box
               component="section" 
@@ -119,7 +76,7 @@ export const InfiniteQuery = () => {
               <Typography variant="body2" color={grey[600]}>{item.body}</Typography>
             </Box>
           ))
-            }
+        }
         {isLoading || isFetchingNextPage && (
           <Box sx={{display: 'flex', justifyContent: 'center'}}>
             <CircularProgress />
@@ -140,7 +97,7 @@ export const InfiniteQuery = () => {
               {isFetchingNextPage ? 'Carregando...' : 'Carregar mais'}
             </Button>
           </Box>
-            )*/}
+        )}
       </>
     </Paper>
   )
